@@ -413,6 +413,15 @@ SetWindowPos(hwnd, nullptr, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_NOZORDER |
 #define GET_ELEMENT_FLAGS(hwnd)															\
 GetWindowLongPtr(hwnd, GWL_STYLE)
 
+//Set The EX Flags/Style Of A Hwnd
+#define SET_ELEMENT_EX_FLAGS(hwnd, flags)												\
+SetWindowLongPtr(hwnd, GWL_EXSTYLE, flags);												\
+SetWindowPos(hwnd, nullptr, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_NOZORDER | SWP_FRAMECHANGED);
+
+//Get The Flags/Style Of A Hwnd
+#define GET_ELEMENT_EX_FLAGS(hwnd)														\
+GetWindowLongPtr(hwnd, GWL_EXSTYLE)
+
 //------------------------------------------------------------------
 //
 // Definition Type: Proc Items For The ElementProc's
