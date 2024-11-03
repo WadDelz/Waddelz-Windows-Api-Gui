@@ -1,6 +1,0 @@
-#include "gui_resource.h"
-
-_GUI_DIALOG DIALOGEX 0, 0, 0, 0
-STYLE DS_SETFONT | WS_POPUP | WS_CAPTION | WS_SYSMENU
-BEGIN
-END
