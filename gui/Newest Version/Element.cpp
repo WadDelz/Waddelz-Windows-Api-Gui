@@ -243,14 +243,24 @@ int Element::GetCommand()
 	return m_iCommandId;
 }
 
-long Element::GetFlags()
+unsigned int Element::GetFlags()
 {
 	return GET_ELEMENT_FLAGS(m_Hwnd);
 }
 
-void Element::SetFlags(long flags)
+void Element::SetFlags(unsigned int flags)
 {
 	SET_ELEMENT_FLAGS(m_Hwnd, flags);
+}
+
+unsigned int Element::GetExtendedFlags()
+{
+	return GET_ELEMENT_EX_FLAGS(m_Hwnd);
+}
+
+void Element::SetExtendedFlags(unsigned int flags)
+{
+	SET_ELEMENT_EX_FLAGS(m_Hwnd, flags);
 }
 
 void Element::SetText(const char* text)
