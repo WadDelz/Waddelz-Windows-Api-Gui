@@ -395,6 +395,8 @@ DefWindowProc(hwnd, msg, wp, lp)
 //------------------------------------------------------------------
 
 //Sets The Userdata Of A Hwnd
+//i just realised that it says USERDATE and not USERDATA and i cant be fucked changing every instance of this so 
+//im gonna leave it for now
 #define SET_ELEMENT_USERDATE(hwnd, udata)												\
 SetWindowLongPtr(hwnd, GWLP_USERDATA, (LONG)udata)
 
