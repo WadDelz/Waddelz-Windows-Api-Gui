@@ -71,8 +71,11 @@ namespace gui
 
 		virtual int GetCommand();
 
-		virtual long GetFlags();
-		virtual void SetFlags(long flags);
+		virtual unsigned int GetFlags();
+		virtual void SetFlags(unsigned int flags);
+		
+		virtual unsigned int GetExtendedFlags();
+		virtual void SetExtendedFlags(unsigned int flags);
 
 		virtual void SetText(const char* text);
 		virtual void GetText(char* buf, int len);
