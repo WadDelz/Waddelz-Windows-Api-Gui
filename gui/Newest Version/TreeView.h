@@ -37,9 +37,42 @@ namespace gui
 		virtual ImageList* GetImageList();
 		virtual void SetImageList(ImageList* il);
 
+		virtual unsigned int GetExtendedTreeViewStyle();
+		virtual void SetExtendedTreeViewStyle(const unsigned int& style);
+
 		virtual void SetTreeviewBgColor(COLORREF color);
 
 		virtual void OnDeconstructor();
+
+		virtual bool GetTreeItemName(HTREEITEM item, char* buf, int len);
+		virtual void RenameTreeItem(HTREEITEM item, const char* newtext);
+
+		virtual HTREEITEM GetTreeItemNextSibling(HTREEITEM item);
+		virtual HTREEITEM GetTreeItemPreviousSibling(HTREEITEM item);
+		virtual HTREEITEM GetTreeItemParent(HTREEITEM item);
+		virtual HTREEITEM GetTreeItemChild(HTREEITEM item);
+		virtual HTREEITEM GetTreeItemNextVisible(HTREEITEM item);
+		virtual HTREEITEM GetTreeItemNextSelected(HTREEITEM item);
+		virtual HTREEITEM GetTreeItemPreviousVisible(HTREEITEM item);
+
+		virtual bool GetTreeItemCheckedState(HTREEITEM item);
+		virtual void SetTreeItemCheckedState(HTREEITEM item, bool checked);
+
+		virtual void StartTreeItemEditLabel(HTREEITEM item);
+		virtual void StopTreeItemEditLabel(HTREEITEM item);
+
+		virtual void DeleteTreeItem(HTREEITEM item);
+		virtual void DeleteAllItems();
+
+		virtual void ExpandTreeItem(HTREEITEM item, int code = TVE_EXPAND);
+
+		virtual void SelectTreeItem(HTREEITEM item);
+
+		virtual void EnsureTreeItemVisible(HTREEITEM item);
+
+		virtual void SelectTreeItemDropTarget(HTREEITEM item);
+
+		virtual int GetSelectedCount();
 
 		DECLARE_ELEMENT_SUBPROC();
 	protected:
@@ -49,6 +82,7 @@ namespace gui
 		ImageList* m_ImageList;
 		HTREEITEM m_Root;
 	};
+
 }
 
 #endif
