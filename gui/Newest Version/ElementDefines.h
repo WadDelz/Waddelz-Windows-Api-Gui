@@ -76,7 +76,7 @@ static BOOL CALLBACK ElementDialogDiffBase(HWND hwnd, UINT msg, WPARAM wp, LPARA
 			return FALSE;																\
 																						\
 		pThis->m_Hwnd = hwnd;															\
-		SET_ELEMENT_USERDATE(hwnd, pThis);												\
+		SET_ELEMENT_USERDATA(hwnd, pThis);												\
 	}																					\
 	else																				\
 	{																					\
@@ -395,9 +395,7 @@ DefWindowProc(hwnd, msg, wp, lp)
 //------------------------------------------------------------------
 
 //Sets The Userdata Of A Hwnd
-//i just realised that it says USERDATE and not USERDATA and i cant be fucked changing every instance of this so 
-//im gonna leave it for now
-#define SET_ELEMENT_USERDATE(hwnd, udata)												\
+#define SET_ELEMENT_USERDATA(hwnd, udata)												\
 SetWindowLongPtr(hwnd, GWLP_USERDATA, (LONG)udata)
 
 //Get The Userdata Of A Hwnd
@@ -449,7 +447,6 @@ EmptyProc
 //A Macro For The Entry Point
 #define ENTRY_POINT()																	\
 INT WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR szCmdLine, int nCmdShow)
-
 
 //------------------------------------------------------------------
 //

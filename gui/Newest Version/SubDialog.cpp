@@ -21,7 +21,7 @@ void SubDialog::MakeDialog(Element* parent, int nResourceFile)
 	m_Hwnd = CreateDialog(GetModuleHandle(nullptr), MAKEINTRESOURCE(nResourceFile), parent->GetHandle(), ElementDialogBase);
 	ShowWindow(m_Hwnd, SW_SHOW);
 
-	SET_ELEMENT_USERDATE(m_Hwnd, this);
+	SET_ELEMENT_USERDATA(m_Hwnd, this);
 	ElementDialogProc(m_Hwnd, WM_INITDIALOG, 0, 0);
 
 	parent->AddChild(this);

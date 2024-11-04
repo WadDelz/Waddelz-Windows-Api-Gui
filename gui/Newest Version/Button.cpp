@@ -52,7 +52,7 @@ bool Button::MakeButton(Element* parent, const char* text, int x, int y, int w, 
 	SetVisible(true);
 	SetEnabled(true);
 
-	SET_ELEMENT_USERDATE(m_Hwnd, this);
+	SET_ELEMENT_USERDATA(m_Hwnd, this);
 	if (UseSubproc)
 	{
 		SetSubproc(ElementSubprocBase);

@@ -47,7 +47,7 @@ bool StatusBar::MakeStatusBar(Element* parent, const char* text, int numParts, b
         nullptr
     );
 
-    SET_ELEMENT_USERDATE(m_Hwnd, this);
+    SET_ELEMENT_USERDATA(m_Hwnd, this);
     if (bUseSubproc)
     {
         SetSubproc(ElementSubprocBase);

@@ -124,7 +124,7 @@ bool Window::MakeWindow(const char* wndprocname, const char* title, long flags, 
 		nullptr
 	);
 
-	SET_ELEMENT_USERDATE(m_Hwnd, this);
+	SET_ELEMENT_USERDATA(m_Hwnd, this);
 
 	SetEnabled(true);
 	SetVisible(true);

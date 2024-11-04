@@ -113,7 +113,7 @@ bool ComboBox::MakeComboBox(Element* parent, int x, int y, int w, int h, int dro
 	SetVisible(true);
 	SetEnabled(true);
 
-	SET_ELEMENT_USERDATE(m_Hwnd, this);
+	SET_ELEMENT_USERDATA(m_Hwnd, this);
 	if (UseSubproc)
 	{
 		SetSubproc(ElementSubprocBase);

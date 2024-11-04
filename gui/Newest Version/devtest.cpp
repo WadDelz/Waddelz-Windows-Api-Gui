@@ -365,6 +365,7 @@
 
 //new devtest
 #include "WaddelzGui.h"
+#include "ToolBar.h"
 
 class CPropertyPage1 : public gui::PropertyPage
 {
@@ -408,33 +409,40 @@ class CMainWindow : public gui::Window
 
 	void OnCreate(ELEMENT_PROC_ITEMS)
 	{
-		m_TabController = new gui::TabController(this, 1000);
-		m_TabController->SetBounds(0, 0, GetWide(), GetTall() - 58);
-		m_TabController->AddTab("Test Tab 1", 0);
-		m_TabController->AddTab("Test Tab 2", 1);
-		m_TabController->SelectTab(0);
+		gui::ImageList* il = new gui::ImageList(16, 16);
+		il->AddIcon(LoadIcon(nullptr, IDI_APPLICATION));
+		il->AddIcon(LoadIcon(nullptr, IDI_WARNING));
 
-		m_StatusBar = new gui::StatusBar(this, "Size = Normal");
+		gui::ToolBar* tb = new gui::ToolBar(this, il);
+		tb->AddButton(1003);
 
-		m_Menu = new gui::Menu();
+		//m_TabController = new gui::TabController(this, 1000);
+		//m_TabController->SetBounds(0, 0, GetWide(), GetTall() - 58);
+		//m_TabController->AddTab("Test Tab 1", 0);
+		//m_TabController->AddTab("Test Tab 2", 1);
+		//m_TabController->SelectTab(0);
 
-		gui::Menu* FileMenu = new gui::Menu();
-		FileMenu->AddItem("Open File", MF_STRING, 1001);
+		//m_StatusBar = new gui::StatusBar(this, "Size = Normal");
 
-		m_Menu->AddMenu(FileMenu, "File", MF_POPUP);
+		//m_Menu = new gui::Menu();
 
-		CPropertyPage1* pp1 = new CPropertyPage1(this);
-		CPropertyPage2* pp2 = new CPropertyPage2(this);
+		//gui::Menu* FileMenu = new gui::Menu();
+		//FileMenu->AddItem("Open File", MF_STRING, 1001);
 
-		m_PPageManager = new gui::PropertyPageManager();
-		m_PPageManager->AddPage(pp1);
-		m_PPageManager->AddPage(pp2);
-		m_PPageManager->SelectPage(0);
+		//m_Menu->AddMenu(FileMenu, "File", MF_POPUP);
 
-		gui::ScrollWheel* sw = new gui::ScrollWheel(this, 0);
-		sw->SetBounds(100, 100, 20, 200);
+		//CPropertyPage1* pp1 = new CPropertyPage1(this);
+		//CPropertyPage2* pp2 = new CPropertyPage2(this);
 
-		SetThisMenu(m_Menu);
+		//m_PPageManager = new gui::PropertyPageManager();
+		//m_PPageManager->AddPage(pp1);
+		//m_PPageManager->AddPage(pp2);
+		//m_PPageManager->SelectPage(0);
+
+		//gui::ScrollWheel* sw = new gui::ScrollWheel(this, 0);
+		//sw->SetBounds(100, 100, 20, 200);
+
+		//SetThisMenu(m_Menu);
 	}
 
 	void OnSize(ELEMENT_PROC_ITEMS)
@@ -456,15 +464,15 @@ class CMainWindow : public gui::Window
 	void OnNotify(ELEMENT_PROC_ITEMS)
 	{
 		GUI_NOTIFICATION_GET()
-		if (noticode->hwndFrom == m_TabController->GetHandle() && noticode->code == TCN_SELCHANGE)
-		{
-			int currselected = m_TabController->GetCurrentSelected();
-			if (m_iPrevSelected == currselected)
-				return;
+		//if (noticode->hwndFrom == m_TabController->GetHandle() && noticode->code == TCN_SELCHANGE)
+		//{
+		//	int currselected = m_TabController->GetCurrentSelected();
+		//	if (m_iPrevSelected == currselected)
+		//		return;
 
-			m_PPageManager->SelectPage(currselected);
-			m_iPrevSelected = currselected;
-		}
+		//	m_PPageManager->SelectPage(currselected);
+		//	m_iPrevSelected = currselected;
+		//}
 	}
 
 	int OnCommand(int id)
@@ -481,6 +489,11 @@ class CMainWindow : public gui::Window
 			{
 				ShowMessageBox(0, "Got Color", "Got Color %d %d %d", GetRValue(cp.GetColor()), GetGValue(cp.GetColor()), GetBValue(cp.GetColor()));
 			}
+		}
+		else if (id == 1003)
+		{
+			bool bIsChecked = m_ToolBar->IsButtonChecked(id);
+			m_ToolBar->SetButtonChecked(id, !bIsChecked);
 		}
 
 		return 0;
