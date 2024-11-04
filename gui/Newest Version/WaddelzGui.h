@@ -33,6 +33,7 @@
 #include "TabController.h"
 #include "TextEntry.h"
 #include "ToolTip.h"
+#include "ToolBar.h"
 #include "TreeView.h"
 #include "Window.h"
 

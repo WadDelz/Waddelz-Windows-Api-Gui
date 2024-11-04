@@ -72,6 +72,9 @@ namespace gui
 
 		virtual void SelectTreeItemDropTarget(HTREEITEM item);
 
+		virtual int GetTreeItemIconIndex(HTREEITEM item, bool bSelected = false);
+		virtual void SetTreeItemIconIndex(HTREEITEM item, int imageIndex, int selectedImageIndex = -1);
+
 		virtual int GetSelectedCount();
 
 		DECLARE_ELEMENT_SUBPROC();

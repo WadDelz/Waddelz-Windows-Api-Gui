@@ -29,10 +29,29 @@ namespace gui
 		virtual bool IsButtonEnabled(int command);
 		virtual void EnableButton(int command, bool enable);
 
-		virtual bool IsButtonChecked(int command);
-		virtual void SetButtonChecked(int command, bool checked);
+		virtual bool IsButtonPressedDown(int command);
+		virtual void SetButtonPressedDown(int command, bool checked);
 
 		virtual bool IsStateEnabled(int command, int state);
+
+		virtual void SetButtonImageIndex(int command, int index);
+		virtual int GetButtonIconIndex(int command);
+
+		virtual void SetX(int x);
+		virtual void SetY(int y);
+		virtual void SetWidth(int width);
+		virtual void SetTall(int height);
+		virtual void SetPos(int x, int y);
+		virtual void SetSize(int width, int height);
+		virtual void SetBounds(int x, int y, int width, int height);
+
+		virtual void GetX(int* x);
+		virtual void GetY(int* y);
+		virtual void GetWidth(int* width);
+		virtual void GetTall(int* height);
+		virtual void GetPos(int* x, int* y);
+		virtual void GetSize(int* width, int* height);
+		virtual void GetBounds(int* x, int* y, int* width, int* height);
 	protected:
 		virtual bool MakeToolBar(Element* parent, int flags = DEF_FLAGS_TOOLBAR, ImageList* il = nullptr);
 	protected:

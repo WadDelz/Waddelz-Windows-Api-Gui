@@ -124,3 +124,13 @@ void TabController::OnDeconstructor()
 {
     DeleteThis();
 }
+
+void TabController::SetExtendedTabCtrlStyle(unsigned int style)
+{
+    TabCtrl_SetExtendedStyle(m_Hwnd, style);
+}
+
+unsigned int TabController::GetExtendedTabCtrlStyle()
+{
+    return TabCtrl_GetExtendedStyle(m_Hwnd);
+}

@@ -365,7 +365,6 @@
 
 //new devtest
 #include "WaddelzGui.h"
-#include "ToolBar.h"
 
 class CPropertyPage1 : public gui::PropertyPage
 {
@@ -410,45 +409,44 @@ class CMainWindow : public gui::Window
 	void OnCreate(ELEMENT_PROC_ITEMS)
 	{
 		gui::ImageList* il = new gui::ImageList(16, 16);
-		il->AddIcon(LoadIcon(nullptr, IDI_APPLICATION));
+		il->AddIcon(gui::LoadIconFromFile("icon1.ico"));
 		il->AddIcon(LoadIcon(nullptr, IDI_WARNING));
 
 		gui::ToolBar* tb = new gui::ToolBar(this, il);
 		tb->AddButton(1003);
 
-		//m_TabController = new gui::TabController(this, 1000);
-		//m_TabController->SetBounds(0, 0, GetWide(), GetTall() - 58);
-		//m_TabController->AddTab("Test Tab 1", 0);
-		//m_TabController->AddTab("Test Tab 2", 1);
-		//m_TabController->SelectTab(0);
+		m_TabController = new gui::TabController(this, 1000);
+		m_TabController->SetBounds(0, 70, GetWide(), GetTall() - 103);
+		m_TabController->AddTab("Test Tab 1", 0);
+		m_TabController->AddTab("Test Tab 2", 1);
+		m_TabController->SelectTab(0);
+		m_TabController->SetExtendedFlags(m_TabController->GetExtendedTabCtrlStyle() | TCS_EX_REGISTERDROP);
 
-		//m_StatusBar = new gui::StatusBar(this, "Size = Normal");
+		m_StatusBar = new gui::StatusBar(this, "Size = Normal");
 
-		//m_Menu = new gui::Menu();
+		m_Menu = new gui::Menu();
 
-		//gui::Menu* FileMenu = new gui::Menu();
-		//FileMenu->AddItem("Open File", MF_STRING, 1001);
+		gui::Menu* FileMenu = new gui::Menu();
+		FileMenu->AddItem("Open File", MF_STRING, 1001);
+		FileMenu->AddItem("Test Tool bar", MF_STRING, 1005);
 
-		//m_Menu->AddMenu(FileMenu, "File", MF_POPUP);
+		m_Menu->AddMenu(FileMenu, "File", MF_POPUP);
 
-		//CPropertyPage1* pp1 = new CPropertyPage1(this);
-		//CPropertyPage2* pp2 = new CPropertyPage2(this);
+		CPropertyPage1* pp1 = new CPropertyPage1(this);
+		CPropertyPage2* pp2 = new CPropertyPage2(this);
 
-		//m_PPageManager = new gui::PropertyPageManager();
-		//m_PPageManager->AddPage(pp1);
-		//m_PPageManager->AddPage(pp2);
-		//m_PPageManager->SelectPage(0);
+		m_PPageManager = new gui::PropertyPageManager();
+		m_PPageManager->AddPage(pp1);
+		m_PPageManager->AddPage(pp2);
+		m_PPageManager->SelectPage(0);
 
-		//gui::ScrollWheel* sw = new gui::ScrollWheel(this, 0);
-		//sw->SetBounds(100, 100, 20, 200);
-
-		//SetThisMenu(m_Menu);
+		SetThisMenu(m_Menu);
 	}
 
 	void OnSize(ELEMENT_PROC_ITEMS)
 	{
 		if (m_TabController)
-			m_TabController->SetBounds(0, 0, LOWORD(lp), HIWORD(lp) - 20);
+			m_TabController->SetBounds(0, 28, LOWORD(lp) + 3, HIWORD(lp) - 46);
 
 		if (m_StatusBar)
 		{
@@ -459,20 +457,23 @@ class CMainWindow : public gui::Window
 
 			m_StatusBar->OnSize(lp);
 		}
+
+		if (m_ToolBar)
+			m_ToolBar->SetWidth(LOWORD(lp));
 	}
 
 	void OnNotify(ELEMENT_PROC_ITEMS)
 	{
 		GUI_NOTIFICATION_GET()
-		//if (noticode->hwndFrom == m_TabController->GetHandle() && noticode->code == TCN_SELCHANGE)
-		//{
-		//	int currselected = m_TabController->GetCurrentSelected();
-		//	if (m_iPrevSelected == currselected)
-		//		return;
+		if (noticode->hwndFrom == m_TabController->GetHandle() && noticode->code == TCN_SELCHANGE)
+		{
+			int currselected = m_TabController->GetCurrentSelected();
+			if (m_iPrevSelected == currselected)
+				return;
 
-		//	m_PPageManager->SelectPage(currselected);
-		//	m_iPrevSelected = currselected;
-		//}
+			m_PPageManager->SelectPage(currselected);
+			m_iPrevSelected = currselected;
+		}
 	}
 
 	int OnCommand(int id)
@@ -492,8 +493,13 @@ class CMainWindow : public gui::Window
 		}
 		else if (id == 1003)
 		{
-			bool bIsChecked = m_ToolBar->IsButtonChecked(id);
-			m_ToolBar->SetButtonChecked(id, !bIsChecked);
+			bool bIsChecked = m_ToolBar->IsButtonPressedDown(id);
+			m_ToolBar->SetButtonPressedDown(id, !bIsChecked);
+			m_ToolBar->SetButtonImageIndex(id, !bIsChecked);
+		}
+		else if (id == 1005)
+		{
+			ShowMessageBox(0, 0, "%d", m_ToolBar->IsButtonPressedDown(1003));
 		}
 
 		return 0;
@@ -519,7 +525,7 @@ class CMainWindow : public gui::Window
 
 	void OnRightClick(ELEMENT_PROC_ITEMS)
 	{
-		if (m_TabController->GetTabCount() % 2 == 1)
+		if (m_TabController->GetTabCount() % 2 == 0)
 		{
 			m_TabController->AddTab("TabController 1", m_TabController->GetTabCount() + 1);
 			CPropertyPage1* pp = new CPropertyPage1(this);
@@ -534,6 +540,13 @@ class CMainWindow : public gui::Window
 			m_TabController->SelectTab(m_TabController->GetTabCount() - 1);
 		}
 
+	}
+
+	void OnMiddleClick(ELEMENT_PROC_ITEMS)
+	{
+		gui::ContextMenu cmenu;
+		cmenu.AddItem("Test Item", 0, 1005);
+		cmenu.DisplayMenu(gui::GetCursorPosition(), this);
 	}
 
 	DECLARE_ELEMENT_PROC()
@@ -554,6 +567,7 @@ DEFINE_ELEMENT_PROC_RETURN(WM_COMMAND, NO_PROC, OnCommand(LOWORD(wp)))
 DEFINE_ELEMENT_PROC(WM_NOTIFY, OnNotify)
 DEFINE_ELEMENT_PROC(WM_CLOSE, OnClose)
 DEFINE_ELEMENT_PROC(WM_RBUTTONDOWN, OnRightClick)
+DEFINE_ELEMENT_PROC(WM_MBUTTONDOWN, OnMiddleClick)
 END_ELEMENT_PROC(BaseClass::ElementProc(ELEMENT_ITEMS));
 
 MAKE_CRASH_HANDLER(CrashHandler)

@@ -300,3 +300,35 @@ int TreeView::GetSelectedCount()
 {
 	return TreeView_GetSelectedCount(m_Hwnd);
 }
+
+void TreeView::SetTreeItemIconIndex(HTREEITEM item, int imageIndex, int selectedImageIndex)
+{
+	TVITEM tvi = {};
+	tvi.mask = TVIF_IMAGE | TVIF_SELECTEDIMAGE;
+	tvi.hItem = item;
+	tvi.iImage = imageIndex;
+
+	tvi.iSelectedImage = (selectedImageIndex != -1) ? selectedImageIndex : imageIndex;
+
+	SendMessage(m_Hwnd, TVM_SETITEM, 0, (LPARAM)&tvi);
+}
+
+int TreeView::GetTreeItemIconIndex(HTREEITEM item, bool bSelected)
+{
+	TVITEM tvi = {};
+	tvi.hItem = item;
+	tvi.mask = TVIF_IMAGE;
+
+	if (bSelected)
+		tvi.mask |= TVIF_SELECTEDIMAGE;
+
+	if (SendMessage(m_Hwnd, TVM_GETITEM, 0, (LPARAM)&tvi))
+	{
+		if (bSelected)
+			return tvi.iSelectedImage;
+		else
+			return tvi.iImage;
+	}
+
+	return -1;
+}
