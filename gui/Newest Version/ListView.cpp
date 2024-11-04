@@ -62,7 +62,7 @@ bool ListView::MakeListView(Element* parent, int x, int y, int w, int h, long fl
     if (imageList)
         SetImageList(imageList);
 
-    SET_ELEMENT_USERDATE(m_Hwnd, this);
+    SET_ELEMENT_USERDATA(m_Hwnd, this);
     if (UseSubproc)
     {
         SetSubproc(ElementSubprocBase);
@@ -131,6 +131,39 @@ int ListView::GetColumnCount()
         count++;
     }
     return count;
+}
+
+unsigned int ListView::GetExtendedListViewStyle()
+{
+    return ListView_GetExtendedListViewStyle(m_Hwnd);
+}
+
+void ListView::SetExtendedListViewStyle(const unsigned int& style)
+{
+    ListView_SetExtendedListViewStyle(m_Hwnd, style);
+}
+
+int ListView::GetSelectedRow()
+{
+    return ListView_GetNextItem(m_Hwnd, -1, LVNI_SELECTED);
+}
+
+bool ListView::GetItemText(char* buf, int size, int row, int horizrow, unsigned int flags)
+{
+    if (!buf)
+        return false;
+
+    LVITEM lvItem;
+    lvItem.iItem = row;
+    lvItem.iSubItem = horizrow;
+    lvItem.mask = flags;
+    lvItem.cchTextMax = size;
+    lvItem.pszText = buf;
+    
+    if (ListView_GetItem(m_Hwnd, &lvItem))
+        return true;
+
+    return false;
 }
 
 void ListView::SetImageList(ImageList* il)

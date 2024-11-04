@@ -2,6 +2,8 @@
 #include "PropertyPage.h"
 #include "ToolTip.h"
 
+#pragma comment(lib, "Winmm.lib")
+
 using namespace gui;
 
 Element::Element()
@@ -11,6 +13,7 @@ Element::Element()
 	m_szName = nullptr;
 	m_szClassName = nullptr;
 	m_PropertyPage = nullptr;
+	m_ToolBar = nullptr;
 	m_bVisible = true;
 	m_bEnabled = true;
 	bDeleteThisHack = false;
@@ -389,6 +392,11 @@ void Element::AddToolTip(ToolTip* tip)
 		m_ToolTips.push_back(tip);
 }
 
+void Element::SetToolBar(ToolBar* tbar)
+{
+	m_ToolBar = tbar;
+}
+
 void Element::DeleteToolTip(ToolTip* tip)
 {
 	delete tip;
@@ -399,6 +407,16 @@ void Element::RemoveToolTip(ToolTip* tip)
 	auto find = std::find(m_ToolTips.begin(), m_ToolTips.end(), tip);
 	if (find != m_ToolTips.end())
 		m_ToolTips.erase(find);
+}
+
+void Element::EmitSound(const char* filename, unsigned long flags, HMODULE hmod)
+{
+	PlaySound(filename, hmod, flags);
+}
+
+ToolBar* Element::GetToolBar()
+{
+	return m_ToolBar;
 }
 
 Element* gui::GetElementFromPoint(POINT pt)

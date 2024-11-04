@@ -21,6 +21,7 @@ namespace gui
 
 	class PropertyPage;
 	class ToolTip;
+	class ToolBar;
 
 	class Element
 	{
@@ -104,16 +105,18 @@ namespace gui
 		virtual void DeleteToolTip(ToolTip* tip);
 		virtual void RemoveToolTip(ToolTip* tip);
 
-		//virtual void MoveToFront();
+		//only 1 sound can play at a time
+		static void EmitSound(const char* filename, unsigned long flags, HMODULE hmod);
 
+		ToolBar* GetToolBar();
+
+		//virtual void MoveToFront();
 		~Element();
 
 		HWND m_Hwnd;
 	protected:
 		PropertyPage* m_PropertyPage;
-
 		WNDPROC m_DefaultProc;
-
 		Element* m_Parent;
 
 		std::vector<Element*> m_Children;
@@ -137,6 +140,12 @@ namespace gui
 		virtual void AddToolTip(ToolTip* tip);
 
 		friend class ToolTip;
+	protected:
+		ToolBar* m_ToolBar;
+
+		virtual void SetToolBar(ToolBar* tbar);
+
+		friend class ToolBar;
 	};
 
 	Element* GetElementFromPoint(POINT pt);

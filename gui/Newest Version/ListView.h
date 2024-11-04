@@ -33,6 +33,13 @@ namespace gui
 
         virtual int GetColumnCount();
 
+        virtual unsigned int GetExtendedListViewStyle();
+        virtual void SetExtendedListViewStyle(const unsigned int& style);
+
+        //the verticle row
+        virtual int GetSelectedRow();
+        virtual bool GetItemText(char* buf, int size, int row /*verticle row*/, int horizrow /*horizontal row*/ = 0, unsigned int flags = LVIF_TEXT);
+
         virtual void SetImageList(ImageList* il);
         virtual ImageList* GetImageList();
 

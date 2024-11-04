@@ -147,7 +147,7 @@ void ToolTip::MakeToolTip(int flags, int maxwidth)
         nullptr
     );
     
-    SET_ELEMENT_USERDATE(m_Hwnd, this);
+    SET_ELEMENT_USERDATA(m_Hwnd, this);
 
     SendMessage(m_Hwnd, TTM_SETMAXTIPWIDTH, 0, 300);
 }
