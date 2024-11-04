@@ -29,6 +29,8 @@ namespace gui
 		virtual bool IsButtonEnabled(int command);
 		virtual void EnableButton(int command, bool enable);
 
+		virtual int GetButtonCount();
+
 		virtual bool IsButtonPressedDown(int command);
 		virtual void SetButtonPressedDown(int command, bool checked);
 

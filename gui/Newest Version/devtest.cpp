@@ -382,6 +382,9 @@ public:
 	}
 };
 
+gui::ImageList* il = new gui::ImageList(16, 16);
+
+
 class CPropertyPage2 : public gui::PropertyPage
 {
 public:
@@ -392,6 +395,43 @@ public:
 		AddElement(button2);
 	}
 };
+
+class CTestSubDialog : public gui::SubDialog
+{
+	DECLARE_ELEMENT_DIALOG_DIFFERENT(CTestSubDialog, gui::SubDialog)
+
+	virtual void OnCreate(ELEMENT_PROC_ITEMS)
+	{
+		if (!m_Parent)
+			return;
+
+		const int wide = 400, tall = 300;
+
+		int x, y;
+		m_Parent->GetCenterPositionFromElement(wide, tall, &x, &y);
+
+		SetPos(x, y);
+		SetSize(wide, tall);
+
+		gui::ToolBar* tb = new gui::ToolBar(this, il);
+		tb->AddButton(1000);
+	}
+
+	void OnCommand(ELEMENT_PROC_ITEMS)
+	{
+		if (LOWORD(wp) == 1000)
+		{
+			OnCloseDifferent(ELEMENT_ITEMS);
+		}
+	}
+
+	DECLARE_ELEMENT_DLGPROC_DIFFERENT();
+};
+
+START_ELEMENT_DLGPROC_DIFFERENT(CTestSubDialog)
+DEFINE_ELEMENT_PROC(WM_INITDIALOG, OnCreate);
+DEFINE_ELEMENT_PROC(WM_COMMAND, OnCommand);
+END_ELEMENT_PROC(BaseClass::ElementDiffDialogProc(ELEMENT_ITEMS))
 
 class CMainWindow : public gui::Window
 {
@@ -408,7 +448,6 @@ class CMainWindow : public gui::Window
 
 	void OnCreate(ELEMENT_PROC_ITEMS)
 	{
-		gui::ImageList* il = new gui::ImageList(16, 16);
 		il->AddIcon(gui::LoadIconFromFile("icon1.ico"));
 		il->AddIcon(LoadIcon(nullptr, IDI_WARNING));
 
@@ -429,6 +468,7 @@ class CMainWindow : public gui::Window
 		gui::Menu* FileMenu = new gui::Menu();
 		FileMenu->AddItem("Open File", MF_STRING, 1001);
 		FileMenu->AddItem("Test Tool bar", MF_STRING, 1005);
+		FileMenu->AddItem("Test Sub Dialog", MF_STRING, 1006);
 
 		m_Menu->AddMenu(FileMenu, "File", MF_POPUP);
 
@@ -500,6 +540,12 @@ class CMainWindow : public gui::Window
 		else if (id == 1005)
 		{
 			ShowMessageBox(0, 0, "%d", m_ToolBar->IsButtonPressedDown(1003));
+		}
+		else if (id == 1006)
+		{
+			CTestSubDialog* ct = new CTestSubDialog();
+			ct->MakeDialogBox(this);
+			ct = nullptr;
 		}
 
 		return 0;

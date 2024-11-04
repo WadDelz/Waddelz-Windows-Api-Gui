@@ -29,9 +29,10 @@ void Element::SetName(const char* name)
 	m_szName = _strdup(name);
 }
 
-void Element::GetPos(int& x, int& y)
+void Element::GetPos(int* x, int* y)
 {
-	x = y = 0;
+	if (x) *x = 0;
+	if (y) *y = 0;
 
 	if (!m_Hwnd)
 		return;
@@ -39,41 +40,42 @@ void Element::GetPos(int& x, int& y)
 	RECT rect = {};
 	GetWindowRect(m_Hwnd, &rect);
 
-	x = rect.left;
-	y = rect.top;
+	if (x) *x = rect.left;
+	if (y) *y = rect.top;
 }
 
 int Element::GetX()
 {
-	int x, y;
-	GetPos(x, y);
+	int x;
+	GetPos(&x, nullptr);
 	return x;
 }
 
 int Element::GetY()
 {
-	int x, y;
-	GetPos(x, y);
+	int y;
+	GetPos(nullptr, &y);
 	return y;
 }
 
 int Element::GetWide()
 {
-	int wide, tall;
-	GetSize(wide, tall);
+	int wide;
+	GetSize(&wide, nullptr);
 	return wide;
 }
 
 int Element::GetTall()
 {
-	int wide, tall;
-	GetSize(wide, tall);
+	int tall;
+	GetSize(nullptr, &tall);
 	return tall;
 }
 
-void Element::GetSize(int& wide, int& tall)
+void Element::GetSize(int* wide, int* tall)
 {
-	wide = tall = 0;
+	if (wide) *wide = 0;
+	if (tall) *tall = 0;
 
 	if (!m_Hwnd)
 		return;
@@ -81,11 +83,11 @@ void Element::GetSize(int& wide, int& tall)
 	RECT rect = {};
 	GetWindowRect(m_Hwnd, &rect);
 
-	wide = rect.right - rect.left;
-	tall = rect.bottom - rect.top;
+	if (wide) *wide = rect.right - rect.left;
+	if (tall) *tall = rect.bottom - rect.top;
 }
 
-void Element::GetBounds(int& x, int& y, int& wide, int& tall)
+void Element::GetBounds(int* x, int* y, int* wide, int* tall)
 {
 	GetPos(x, y);
 	GetSize(wide, tall);
@@ -412,6 +414,15 @@ void Element::RemoveToolTip(ToolTip* tip)
 void Element::EmitSound(const char* filename, unsigned long flags, HMODULE hmod)
 {
 	PlaySound(filename, hmod, flags);
+}
+
+void Element::GetCenterPositionFromElement(const int& elementwide, const int& elementtall, int* x, int* y)
+{
+	int thisx, thisy, thisw, thish;
+	GetBounds(&thisx, &thisy, &thisw, &thish);
+
+	if (x) *x = (thisx + (thisw / 2) - ((elementwide) / 2));
+	if (y) *y = (thisy + (thish / 2) - ((elementtall) / 2));
 }
 
 ToolBar* Element::GetToolBar()

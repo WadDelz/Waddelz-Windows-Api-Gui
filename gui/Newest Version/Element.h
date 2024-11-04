@@ -34,9 +34,9 @@ namespace gui
 		virtual int GetY();
 		virtual int GetWide();
 		virtual int GetTall();
-		virtual void GetPos(int& x, int& y);
-		virtual void GetSize(int& wide, int& tall);
-		virtual void GetBounds(int& x, int& y, int& wide, int& tall);
+		virtual void GetPos(int* x, int* y);
+		virtual void GetSize(int* wide, int* tall);
+		virtual void GetBounds(int* x, int* y, int* wide, int* tall);
 
 		virtual void SetPos(const int& x, const int& y);
 		virtual void SetX(const int& x);
@@ -107,6 +107,8 @@ namespace gui
 
 		//only 1 sound can play at a time
 		static void EmitSound(const char* filename, unsigned long flags, HMODULE hmod);
+
+		virtual void GetCenterPositionFromElement(const int& elementwide, const int& elementtall, int* x, int* y);
 
 		ToolBar* GetToolBar();
 

@@ -24,7 +24,7 @@ void ToolBar::AddButton(int command, int state, int style, int ibitmap)
 	button[0].fsState = state;
 	button[0].fsStyle = style;
 	button[0].iBitmap = ibitmap;
-
+	
 	SendMessage(m_Hwnd, TB_ADDBUTTONS, (WPARAM)1, (LPARAM)&button);
 }
 
@@ -54,6 +54,11 @@ bool ToolBar::IsButtonEnabled(int command)
 void ToolBar::EnableButton(int command, bool enable)
 {
 	SendMessage(m_Hwnd, TB_SETSTATE, (WPARAM)command, (LPARAM)(enable ? TBSTATE_ENABLED : 0));
+}
+
+int ToolBar::GetButtonCount()
+{
+	return SendMessage(m_Hwnd, TB_BUTTONCOUNT, 0, 0);
 }
 
 bool ToolBar::IsStateEnabled(int command, int state)
