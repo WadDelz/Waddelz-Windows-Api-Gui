@@ -25,11 +25,6 @@ ListBox::ListBox(Element* parent, const int& x, const int& y, const int& w, cons
 	parent->AddChild(this);
 }
 
-void ListBox::OnDeconstructor()
-{
-	DeleteThis();
-}
-
 bool ListBox::MakeListBox(Element* parent, int x, int y, int w, int h, long flags, int command, bool UseSubproc)
 {
 	if (!parent)

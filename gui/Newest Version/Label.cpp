@@ -35,11 +35,6 @@ HFONT Label::GetFont()
 	return (HFONT)SendMessage(m_Hwnd, WM_GETFONT, 0, 0);
 }
 
-void Label::OnDeconstructor()
-{
-	DeleteThis();
-}
-
 bool Label::MakeLabel(Element* parent, const char* text, int x, int y, int w, int h, long flags, int command, bool UseSubproc)
 {
 	m_iCommandId = command;

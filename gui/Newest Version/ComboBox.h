@@ -46,8 +46,6 @@ namespace gui
 		//of the actuall combo box then use the SetElementHeight function
 		virtual void SetTall(const int& tall) { BaseClass::SetTall(tall); }
 
-		virtual void OnDeconstructor();
-
 		DECLARE_ELEMENT_SUBPROC();
 	protected:
 		virtual bool MakeComboBox(Element* parent, int x = 0, int y = 0, int w = 0, int h = 0, int dropdownheight = 0, long flags = DEF_FLAGS_COMBOBOX, int command = 0, bool UseSubproc = false);

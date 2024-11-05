@@ -31,8 +31,6 @@ namespace gui
 		virtual int GetTextLength();
 		virtual void ClearText();
 
-		virtual void OnDeconstructor();
-
 		DECLARE_ELEMENT_SUBPROC();
 	protected:
 		virtual bool MakeTextEntry(Element* parent, const char* text, int x = 0, int y = 0, int w = 0, int h = 0, long flags = DEF_FLAGS_TEXTENTRY, int command = 0, bool UseSubproc = false);

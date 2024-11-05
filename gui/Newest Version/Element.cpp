@@ -17,6 +17,7 @@ Element::Element()
 	m_bVisible = true;
 	m_bEnabled = true;
 	bDeleteThisHack = false;
+	m_bIsSubDialog = false;
 	m_Children = {};
 	m_iCommandId = 0;
 }
@@ -217,7 +218,7 @@ void Element::DeleteThis()
 {
 	if (bDeleteThisHack)
 		return;
-
+	
 	if (m_Hwnd)
 		DestroyWindow(m_Hwnd);
 
@@ -375,9 +376,12 @@ int Element::ShowMessageBox(int flags, const char* title, const char* text, ...)
 //	SetWindowPos(m_Hwnd, HWND_NOTOPMOST, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE);
 //}
 
+#include "SubDialog.h"
+
 Element::~Element()
 {
-	//OnDeconstructor();
+	if (!m_bIsSubDialog)
+		OnDeconstructor();
 }
 
 void Element::SetClassname(const char* classname)

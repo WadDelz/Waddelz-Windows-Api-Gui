@@ -22,8 +22,6 @@ namespace gui
 		Button(Element* parent, const char* text, const int& command);
 		Button(Element* parent, const int& x, const int& y, const int& w, const int& h, const int& flags, const int& command, bool bUseSubproc, const char* text, const char* classname);
 
-		virtual void OnDeconstructor();
-		
 		DECLARE_ELEMENT_SUBPROC();
 	protected:
 		virtual bool MakeButton(Element* parent, const char* text, int x = 0, int y = 0, int w = 0, int h = 0, long flags = DEF_FLAGS_BUTTON, int command = 0, bool UseSubproc = false);

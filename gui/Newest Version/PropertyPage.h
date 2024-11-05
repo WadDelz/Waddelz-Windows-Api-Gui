@@ -25,7 +25,7 @@ namespace gui
 		virtual void RemoveElement(Element* element, const bool& bDelete = true);
 
 		std::vector<Element*> GetElements();
-	protected:
+	
 		virtual void ShowAllItems(const bool& bShow);
 		virtual void DeleteAllItems();
 	protected:
@@ -51,6 +51,8 @@ namespace gui
 		virtual void SetParent(Element* parent);
 		
 		virtual std::vector<PropertyPage*> GetPages();
+
+		virtual void DeleteEverything(bool bDeleteThis = false);
 	protected:
 		Element* m_Parent;
 

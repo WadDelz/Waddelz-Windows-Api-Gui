@@ -176,8 +176,3 @@ ImageList* ListView::GetImageList()
 {
     return m_ImageList;
 }
-
-void ListView::OnDeconstructor()
-{
-    DeleteThis();
-}

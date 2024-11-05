@@ -91,8 +91,3 @@ void StatusBar::OnSize(int lparam)
 {
     SendMessage(m_Hwnd, WM_SIZE, 0, lparam);
 }
-
-void StatusBar::OnDeconstructor()
-{
-    DeleteThis();
-}

@@ -37,12 +37,12 @@ namespace gui
 
         virtual void GetTabSize(int& wide, int& tall);
 
-        virtual void OnDeconstructor();
-
         virtual void SetExtendedTabCtrlStyle(unsigned int style);
         virtual unsigned int GetExtendedTabCtrlStyle();
 
         DECLARE_ELEMENT_SUBPROC()
+
+        ~TabController();
     protected:
         virtual bool MakeTabControl(Element* parent, int x, int y, int w, int h, long flags = DEF_FLAGS_TABCONTROLLER, int command = 0, bool bUseSubproc = false);
 

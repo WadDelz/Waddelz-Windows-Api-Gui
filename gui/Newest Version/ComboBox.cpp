@@ -83,11 +83,6 @@ int ComboBox::GetElementHeight()
 	return m_ElementHeight;
 }
 
-void ComboBox::OnDeconstructor()
-{
-	DeleteThis();
-}
-
 bool ComboBox::MakeComboBox(Element* parent, int x, int y, int w, int h, int dropdownheight, long flags, int command, bool UseSubproc)
 {
 	m_iCommandId = command;

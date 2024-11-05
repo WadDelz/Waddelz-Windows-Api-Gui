@@ -27,10 +27,7 @@ namespace gui
 		virtual int GetPosition();
 		virtual void StepIt(int step = 1);
 
-		virtual void OnDeconstructor();
-
 		DECLARE_ELEMENT_SUBPROC();
-
 	protected:
 		virtual bool MakeLoadingBar(Element* parent, int x = 0, int y = 0, int w = 100, int h = 20, long flags = DEF_FLAGS_LOADINGBAR, int min = 0, int max = 100, int initialPos = 0, bool UseSubproc = false);
 	};

@@ -117,7 +117,10 @@ void PropertyPageManager::RemovePage(const unsigned int& index)
 
 PropertyPage* PropertyPageManager::GetPageFromIndex(const unsigned int& index)
 {
-	return nullptr;
+	if (index >= m_vPPages.size())
+		return nullptr;
+
+	return m_vPPages[index];
 }
 
 void PropertyPageManager::SelectPage(const unsigned int& index)
@@ -159,4 +162,21 @@ void PropertyPageManager::SetParent(Element* parent)
 std::vector<PropertyPage*> PropertyPageManager::GetPages()
 {
 	return m_vPPages;
+}
+
+void PropertyPageManager::DeleteEverything(bool bDeleteThis)
+{
+	for (unsigned int i = 0; i < m_vPPages.size(); i++)
+	{
+		PropertyPage* page = m_vPPages[i];
+		if (!page)
+			continue;
+
+		page->DeleteAllItems();
+		delete page;
+	}
+	m_vPPages.clear();
+
+	if (bDeleteThis)
+		delete this;
 }

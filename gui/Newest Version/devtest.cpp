@@ -393,12 +393,17 @@ public:
 		gui::Button* button2 = new gui::Button(parent, "Test2", 1001);
 		button2->SetBounds(100, 400, 100, 25);
 		AddElement(button2);
+
+		gui::TreeView* tv = new gui::TreeView(parent, "Test", 1010);
+		tv->SetFlags(tv->GetFlags() | TVS_INFOTIP);
+		tv->SetBounds(300, 100, 200, 400);
+		AddElement(tv);
 	}
 };
 
 class CTestSubDialog : public gui::SubDialog
 {
-	DECLARE_ELEMENT_DIALOG_DIFFERENT(CTestSubDialog, gui::SubDialog)
+	DECLARE_ELEMENT_DIALOG_BOTH(CTestSubDialog, gui::SubDialog)
 
 	virtual void OnCreate(ELEMENT_PROC_ITEMS)
 	{
@@ -426,12 +431,22 @@ class CTestSubDialog : public gui::SubDialog
 	}
 
 	DECLARE_ELEMENT_DLGPROC_DIFFERENT();
+	DECLARE_ELEMENT_DLGPROC();
 };
 
 START_ELEMENT_DLGPROC_DIFFERENT(CTestSubDialog)
 DEFINE_ELEMENT_PROC(WM_INITDIALOG, OnCreate);
 DEFINE_ELEMENT_PROC(WM_COMMAND, OnCommand);
 END_ELEMENT_PROC(BaseClass::ElementDiffDialogProc(ELEMENT_ITEMS))
+
+START_ELEMENT_DLGPROC(CTestSubDialog)
+DEFINE_ELEMENT_PROC(WM_INITDIALOG, OnCreate);
+DEFINE_ELEMENT_PROC(WM_COMMAND, OnCommand);
+END_ELEMENT_PROC(BaseClass::ElementDialogProc(ELEMENT_ITEMS))
+
+//set this to 1 to make the sub dialog be normal so you can do stuff
+//on that dialog and the main window and not just the dialog
+#define GUI_DIALOG_BOX 1
 
 class CMainWindow : public gui::Window
 {
@@ -505,6 +520,9 @@ class CMainWindow : public gui::Window
 	void OnNotify(ELEMENT_PROC_ITEMS)
 	{
 		GUI_NOTIFICATION_GET()
+			if (!m_TabController)
+				return;
+
 		if (noticode->hwndFrom == m_TabController->GetHandle() && noticode->code == TCN_SELCHANGE)
 		{
 			int currselected = m_TabController->GetCurrentSelected();
@@ -513,6 +531,14 @@ class CMainWindow : public gui::Window
 
 			m_PPageManager->SelectPage(currselected);
 			m_iPrevSelected = currselected;
+		}
+		else if (noticode->code == TVN_GETINFOTIP && noticode->idFrom == 1010)
+		{
+			NMTVGETINFOTIP* pGetInfoTip = (NMTVGETINFOTIP*)noticode;
+			if (pGetInfoTip->hItem)
+			{
+				strcpy_s(pGetInfoTip->pszText, pGetInfoTip->cchTextMax, "Hello World");
+			}
 		}
 	}
 
@@ -544,7 +570,11 @@ class CMainWindow : public gui::Window
 		else if (id == 1006)
 		{
 			CTestSubDialog* ct = new CTestSubDialog();
+#if GUI_DIALOG_BOX
+			ct->MakeDialog(this);
+#else
 			ct->MakeDialogBox(this);
+#endif
 			ct = nullptr;
 		}
 
@@ -571,6 +601,9 @@ class CMainWindow : public gui::Window
 
 	void OnRightClick(ELEMENT_PROC_ITEMS)
 	{
+		if (!m_TabController)
+			return;
+
 		if (m_TabController->GetTabCount() % 2 == 0)
 		{
 			m_TabController->AddTab("TabController 1", m_TabController->GetTabCount() + 1);
@@ -593,6 +626,8 @@ class CMainWindow : public gui::Window
 		gui::ContextMenu cmenu;
 		cmenu.AddItem("Test Item", 0, 1005);
 		cmenu.DisplayMenu(gui::GetCursorPosition(), this);
+
+		m_PPageManager->DeleteEverything(true);
 	}
 
 	DECLARE_ELEMENT_PROC()

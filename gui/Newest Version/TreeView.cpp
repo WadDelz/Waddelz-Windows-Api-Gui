@@ -159,12 +159,6 @@ void TreeView::SetTreeviewBgColor(COLORREF color)
 	TreeView_SetBkColor(m_Hwnd, color);
 }
 
-void TreeView::OnDeconstructor()
-{
-	DeleteThis();
-}
-
-
 bool TreeView::GetTreeItemName(HTREEITEM item, char* buf, int len)
 {
 	TVITEM tvi;

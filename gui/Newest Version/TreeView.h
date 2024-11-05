@@ -42,8 +42,6 @@ namespace gui
 
 		virtual void SetTreeviewBgColor(COLORREF color);
 
-		virtual void OnDeconstructor();
-
 		virtual bool GetTreeItemName(HTREEITEM item, char* buf, int len);
 		virtual void RenameTreeItem(HTREEITEM item, const char* newtext);
 

@@ -25,11 +25,6 @@ Button::Button(Element* parent, const int& x, const int& y, const int& w, const 
 	parent->AddChild(this);
 }
 
-void Button::OnDeconstructor()
-{
-	DeleteThis();
-}
-
 bool Button::MakeButton(Element* parent, const char* text, int x, int y, int w, int h, long flags, int command, bool UseSubproc)
 {
 	m_iCommandId = command;

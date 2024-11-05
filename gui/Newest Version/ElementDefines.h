@@ -130,6 +130,11 @@ Proc_DeclareDlg(classname)
 Proc_DeclareBaseClass(baseclass)														\
 Proc_DeclareDlgDifferent(classname)
 
+#define DECLARE_ELEMENT_DIALOG_BOTH(classname, baseclass)							    \
+Proc_DeclareBaseClass(baseclass)														\
+Proc_DeclareDlgDifferent(classname)														\
+Proc_DeclareDlg(classname)
+
 //------------------------------------------------------------------
 //
 // Definition Type: Declaring The Procs For The Element
@@ -216,7 +221,7 @@ BOOL CALLBACK classname::ElementSubproc(HWND hwnd, UINT msg, WPARAM wp, LPARAM l
 
 //Starts The Base Proc Function For The Desired Classname
 #define START_ELEMENT_DLGPROC(classname)												\
-BOOL CALLBACK classname::ElementDialogProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)\
+BOOL CALLBACK classname::ElementDialogProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)	\
 {																						\
 	int notificationCode = HIWORD(wp);													\
 	switch (msg)																		\
@@ -224,7 +229,7 @@ BOOL CALLBACK classname::ElementDialogProc(HWND hwnd, UINT msg, WPARAM wp, LPARA
 
 //Starts The Base Proc But Doesnt Start With The switch(msg) Thing
 #define START_ELEMENT_DLGPROC_NOSWITCH(classname)										\
-BOOL CALLBACK classname::ElementDialogProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)\
+BOOL CALLBACK classname::ElementDialogProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)	\
 {																						\
 	int notificationCode = HIWORD(wp);
 

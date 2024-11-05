@@ -24,10 +24,7 @@ namespace gui
         virtual void OnSize(int width, int height);
         virtual void OnSize(int lparam);
 
-        virtual void OnDeconstructor();
-
         DECLARE_ELEMENT_SUBPROC();
-
     protected:
         virtual bool MakeStatusBar(Element* parent, const char* text, int numParts, bool bUseSubproc);
 

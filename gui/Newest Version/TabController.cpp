@@ -27,6 +27,11 @@ TabController::TabController(Element* parent, const int& x, const int& y, const 
 
 static bool bDidInitCommonCtrls = false;
 
+TabController::~TabController()
+{
+    OnDeconstructor();
+}
+
 bool TabController::MakeTabControl(Element* parent, int x, int y, int w, int h, long flags, int command, bool bUseSubproc)
 {
     if (!parent)
@@ -118,11 +123,6 @@ void TabController::GetTabSize(int& wide, int& tall)
         tall = rect.bottom - rect.top;
     }
 
-}
-
-void TabController::OnDeconstructor()
-{
-    DeleteThis();
 }
 
 void TabController::SetExtendedTabCtrlStyle(unsigned int style)

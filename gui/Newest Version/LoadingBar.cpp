@@ -89,8 +89,3 @@ void LoadingBar::StepIt(int step)
 {
 	SendMessage(m_Hwnd, PBM_DELTAPOS, step, 0);
 }
-
-void LoadingBar::OnDeconstructor()
-{
-	DeleteThis();
-}

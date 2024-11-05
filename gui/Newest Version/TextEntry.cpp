@@ -42,11 +42,6 @@ void TextEntry::AppendText(const char* text)
 	ReplaceSelectedText(text, TRUE);
 }
 
-void TextEntry::OnDeconstructor()
-{
-	DeleteThis();
-}
-
 int TextEntry::GetTextLength()
 {
 	return GetWindowTextLength(m_Hwnd);

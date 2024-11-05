@@ -25,8 +25,6 @@ namespace gui
 		virtual void SetFont(HFONT font, BOOL bRedraw = TRUE);
 		virtual HFONT GetFont();
 
-		virtual void OnDeconstructor();
-
 		DECLARE_ELEMENT_SUBPROC();
 	protected:
 		virtual bool MakeLabel(Element* parent, const char* text, int x = 0, int y = 0, int w = 0, int h = 0, long flags = DEF_FLAGS_LABEL, int command = 0, bool UseSubproc = false);

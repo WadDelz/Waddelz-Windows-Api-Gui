@@ -148,6 +148,10 @@ namespace gui
 		virtual void SetToolBar(ToolBar* tbar);
 
 		friend class ToolBar;
+	private:
+		//ONLY PRIVATE VARIABLE IM MAKING
+		bool m_bIsSubDialog;
+		friend class SubDialog;
 	};
 
 	Element* GetElementFromPoint(POINT pt);

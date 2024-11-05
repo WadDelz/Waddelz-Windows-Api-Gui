@@ -37,8 +37,6 @@ namespace gui
 
 		virtual int GetItemTextLength(int index);
 
-		virtual void OnDeconstructor();
-
 		DECLARE_ELEMENT_SUBPROC();
 
 	protected:

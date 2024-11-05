@@ -43,8 +43,6 @@ namespace gui
         virtual void SetImageList(ImageList* il);
         virtual ImageList* GetImageList();
 
-        virtual void OnDeconstructor();
-
         DECLARE_ELEMENT_SUBPROC();
     protected:
         virtual bool MakeListView(Element* parent, int x = 0, int y = 0, int w = 0, int h = 0, long flags = DEF_FLAGS_LISTVIEW, int command = 0, bool UseSubproc = false, ImageList* imageList = nullptr);
