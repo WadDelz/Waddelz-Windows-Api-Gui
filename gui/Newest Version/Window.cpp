@@ -21,7 +21,7 @@ Window::Window(const char* title) : BaseClass()
 	MakeWindow("Window", title);
 }
 
-Window::Window(const char* classname, const char* wndprocname, const char* title, int flags, int x, int y, int w, int h, bool bPaintBg, unsigned char r, unsigned char g, unsigned char b, HICON icon, HINSTANCE instance)
+Window::Window(const char* classname, const char* wndprocname, const char* title, int flags, int x, int y, int w, int h, bool bPaintBg, unsigned char r, unsigned char g, unsigned char b, HICON icon, HINSTANCE instance) : BaseClass()
 {
 	m_Menu = nullptr;
 	m_hbBackground = nullptr;

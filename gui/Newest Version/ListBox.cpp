@@ -18,7 +18,7 @@ ListBox::ListBox(Element* parent, const int& command) : BaseClass()
 	parent->AddChild(this);
 }
 
-ListBox::ListBox(Element* parent, const int& x, const int& y, const int& w, const int& h, const int& flags, const bool& bUseSubproc, const int& command, const char* classname)
+ListBox::ListBox(Element* parent, const int& x, const int& y, const int& w, const int& h, const int& flags, const bool& bUseSubproc, const int& command, const char* classname) : BaseClass()
 {
 	SetClassname(classname);
 	MakeListBox(parent, x, y, w, h, flags, command, bUseSubproc);

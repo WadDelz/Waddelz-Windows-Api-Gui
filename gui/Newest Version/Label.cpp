@@ -18,7 +18,7 @@ Label::Label(Element* parent, const char* text, const int& command) : BaseClass(
 	parent->AddChild(this);
 }
 
-Label::Label(Element* parent, const int& x, const int& y, const int& w, const int& h, const int& flags, const int& command, bool bUseSubproc, const char* text, const char* classname)
+Label::Label(Element* parent, const int& x, const int& y, const int& w, const int& h, const int& flags, const int& command, bool bUseSubproc, const char* text, const char* classname) : BaseClass()
 {
 	SetClassname(classname);
 	MakeLabel(parent, text, x, y, w, h, flags, command, bUseSubproc);

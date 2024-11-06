@@ -18,7 +18,7 @@ CheckButton::CheckButton(Element* parent, const char* text, const int& command) 
 	parent->AddChild(this);
 }
 
-CheckButton::CheckButton(Element* parent, const char* text, const int& x, const int& y, const int& w, const int& h, const int& flags, const int& command, bool bChecked, bool bUseSubproc, const char* classname)
+CheckButton::CheckButton(Element* parent, const char* text, const int& x, const int& y, const int& w, const int& h, const int& flags, const int& command, bool bChecked, bool bUseSubproc, const char* classname) : BaseClass()
 {
 	SetClassname(classname);
 	MakeCheckbutton(parent, text, x, y, w, h, flags, command, bChecked, bUseSubproc);

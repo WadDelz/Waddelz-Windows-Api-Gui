@@ -18,7 +18,7 @@ Button::Button(Element* parent, const char* text, const int& command) : BaseClas
 	parent->AddChild(this);
 }
 
-Button::Button(Element* parent, const int& x, const int& y, const int& w, const int& h, const int& flags, const int& command, bool bUseSubproc, const char* text, const char* classname)
+Button::Button(Element* parent, const int& x, const int& y, const int& w, const int& h, const int& flags, const int& command, bool bUseSubproc, const char* text, const char* classname) : BaseClass()
 {
 	SetClassname(classname);
 	MakeButton(parent, text, x, y, w, h, flags, command, bUseSubproc);

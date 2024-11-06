@@ -5,6 +5,7 @@
 #include "Checkbutton.h"
 #include "ColorPicker.h"
 #include "ComboBox.h"
+#include "Container.h"
 #include "ContextMenu.h"
 #include "CrashHandler.h"
 #include "Cursor.h"

@@ -20,7 +20,7 @@ ComboBox::ComboBox(Element* parent, const int& command) : BaseClass()
 	parent->AddChild(this);
 }
 
-ComboBox::ComboBox(Element* parent, const int& x, const int& y, const int& w, const int& h, const int& dropdownheight, const int& flags, const int& command, bool bUseSubproc, const char* classname)
+ComboBox::ComboBox(Element* parent, const int& x, const int& y, const int& w, const int& h, const int& dropdownheight, const int& flags, const int& command, bool bUseSubproc, const char* classname) : BaseClass()
 {
 	m_ElementHeight = 0;
 	SetClassname(classname);

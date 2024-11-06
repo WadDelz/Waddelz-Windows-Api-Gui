@@ -379,6 +379,13 @@ public:
 		tt->AddTool(button, "This Is A Test\nTool Tip");
 		tt->SetDelayTime(100);
 		tt->Activate(true);
+
+		gui::Container* ct = new gui::Container(parent, 0);
+		ct->SetBounds(300, 300, 200, 200);
+		AddElement(ct);
+
+		gui::Button* b = new gui::Button(ct, "Hell World", 1001);
+		b->SetBounds(10, 10, 100, 20);
 	}
 };
 
@@ -542,7 +549,7 @@ class CMainWindow : public gui::Window
 		}
 	}
 
-	int OnCommand(int id)
+	int OnCommand(int id, int lp)
 	{
 		if (id == 1001)
 		{
@@ -644,7 +651,7 @@ private:
 START_ELEMENT_PROC(CMainWindow)
 DEFINE_ELEMENT_PROC(WM_CREATE, OnCreate)
 DEFINE_ELEMENT_PROC(WM_SIZE, OnSize)
-DEFINE_ELEMENT_PROC_RETURN(WM_COMMAND, NO_PROC, OnCommand(LOWORD(wp)))
+DEFINE_ELEMENT_PROC_RETURN(WM_COMMAND, NO_PROC, OnCommand(LOWORD(wp), lp))
 DEFINE_ELEMENT_PROC(WM_NOTIFY, OnNotify)
 DEFINE_ELEMENT_PROC(WM_CLOSE, OnClose)
 DEFINE_ELEMENT_PROC(WM_RBUTTONDOWN, OnRightClick)
