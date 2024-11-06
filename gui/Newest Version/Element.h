@@ -102,6 +102,8 @@ namespace gui
 		virtual void SetPropertyPage(PropertyPage* page);
 		virtual PropertyPage* GetPropertyPage();
 
+		virtual LRESULT OutMessage(UINT msg, WPARAM wp, LPARAM lp);
+		
 		virtual void DeleteToolTip(ToolTip* tip);
 		virtual void RemoveToolTip(ToolTip* tip);
 
@@ -110,7 +112,12 @@ namespace gui
 
 		virtual void GetCenterPositionFromElement(const int& elementwide, const int& elementtall, int* x, int* y);
 
-		ToolBar* GetToolBar();
+		virtual ToolBar* GetToolBar();
+
+		virtual RECT GetRect();
+
+		virtual void StartCapture();
+		virtual void EndCapture();
 
 		//virtual void MoveToFront();
 		~Element();

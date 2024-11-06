@@ -147,6 +147,11 @@ PropertyPage* Element::GetPropertyPage()
 	return m_PropertyPage;
 }
 
+LRESULT Element::OutMessage(UINT msg, WPARAM wp, LPARAM lp)
+{
+	return SendMessage(m_Hwnd, msg, wp, lp);
+}
+
 const char* Element::GetName()
 {
 	return m_szName;
@@ -432,6 +437,23 @@ void Element::GetCenterPositionFromElement(const int& elementwide, const int& el
 ToolBar* Element::GetToolBar()
 {
 	return m_ToolBar;
+}
+
+RECT Element::GetRect()
+{
+	RECT rect;
+	GetWindowRect(m_Hwnd, &rect);
+	return rect;
+}
+
+void Element::StartCapture()
+{
+	SetCapture(m_Hwnd);
+}
+
+void Element::EndCapture()
+{
+	ReleaseCapture();
 }
 
 Element* gui::GetElementFromPoint(POINT pt)

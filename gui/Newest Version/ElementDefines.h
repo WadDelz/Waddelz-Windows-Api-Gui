@@ -191,6 +191,14 @@ BOOL CALLBACK ElementDiffDialogProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)		
 //
 //------------------------------------------------------------------
 
+//Makes a custom proc. used for the things in CustomItem.h
+#define START_CUSTOM_PROC(name)															\
+LRESULT CALLBACK name(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)						\
+{																						\
+	int notificationCode = HIWORD(wp);													\
+	switch (msg)																		\
+	{
+
 //Starts The Base Proc Function For The Desired Classname
 #define START_ELEMENT_PROC(classname)													\
 LRESULT CALLBACK classname::ElementProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)		\
@@ -215,7 +223,7 @@ LRESULT CALLBACK classname::ElementSubproc(HWND hwnd, UINT msg, WPARAM wp, LPARA
 
 //Starts The Sub Proc But Doesnt Start With The switch(msg) Thing
 #define START_ELEMENT_SUBPROC_NOSWITCH(classname)										\
-BOOL CALLBACK classname::ElementSubproc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)	    \
+LRESULT CALLBACK classname::ElementSubproc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp)	\
 {																						\
 	int notificationCode = HIWORD(wp);
 
