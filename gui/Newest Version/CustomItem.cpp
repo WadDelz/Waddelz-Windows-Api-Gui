@@ -3,7 +3,7 @@
 using namespace gui;
 
 START_ELEMENT_SUBPROC_NOSWITCH(CustomItem)
-END_ELEMENT_PROC_NO_SWITCH(CALL_DEF_SUBPROC())
+END_PROC_NOSWITCH(CALL_DEF_SUBPROC())
 
 CustomItem::CustomItem()
 {
@@ -28,7 +28,7 @@ CustomItem::CustomItem(Element* parent, const char* wndclassname, const char* te
 		parent->AddChild(this);
 }
 
-void CustomItem::MakeItem(Element* parent, const char* wndclassname, const char* text, int flags, int x, int y, int w, int h, int command, bool bUseSubproc)
+bool CustomItem::MakeItem(Element* parent, const char* wndclassname, const char* text, int flags, int x, int y, int w, int h, int command, bool bUseSubproc)
 {
 	m_iCommandId = command;
 
@@ -44,6 +44,9 @@ void CustomItem::MakeItem(Element* parent, const char* wndclassname, const char*
 		nullptr
 	);
 
+	if (!m_Hwnd)
+		return false;
+
 	SetVisible(true);
 	SetEnabled(true);
 
@@ -53,15 +56,30 @@ void CustomItem::MakeItem(Element* parent, const char* wndclassname, const char*
 		SetSubproc(ElementSubprocBase);
 		ElementSubproc(m_Hwnd, WM_CREATE, 0, 0);
 	}
+
+	return true;
 }
 
-bool gui::RegisterCustomItem(const char* classname, WNDPROC wndproc, HBRUSH hbrbackground, HINSTANCE instance, HICON icon, HCURSOR cursor)
+bool gui::RegisterCustomItem(
+	LPCSTR classname,
+	WNDPROC wndproc,
+	HINSTANCE instance,
+	HICON icon,
+	HBRUSH hbrbackground,
+	HCURSOR cursor,
+	INT style,
+	LPCSTR menuname
+)
 {
 	WNDCLASS wc = {};
-	wc.hCursor = cursor;
-	wc.hIcon = icon;
+	wc.lpszClassName = classname;
 	wc.lpfnWndProc = wndproc;
+	wc.style = style;
+	wc.lpszMenuName = menuname;
+	wc.hbrBackground = hbrbackground;
 	wc.hInstance = instance;
+	wc.hIcon = icon;
+	wc.hCursor = cursor;
 
 	return RegisterClass(&wc);
 }

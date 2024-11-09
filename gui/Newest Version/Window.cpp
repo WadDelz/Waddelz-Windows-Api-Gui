@@ -4,7 +4,7 @@ using namespace gui;
 
 START_ELEMENT_PROC(Window)
 DEFINE_ELEMENT_PROC_RETURN(WM_CREATE, NO_PROC, 0);
-END_ELEMENT_PROC(CALL_DEF_WINDPROC())
+END_PROC(CALL_DEF_WINDPROC())
 
 Window::Window() : BaseClass()
 {
@@ -27,16 +27,6 @@ Window::Window(const char* classname, const char* wndprocname, const char* title
 	m_hbBackground = nullptr;
 	SetClassname(classname);
 	MakeWindow(wndprocname, title, flags, x, y, w, g, bPaintBg, r, g, b, icon, instance);
-}
-
-void Window::WindowLoop()
-{
-	MSG msg = {};
-	while (GetMessage(&msg, nullptr, NULL, NULL))
-	{
-		TranslateMessage(&msg);
-		DispatchMessage(&msg);
-	}
 }
 
 void Window::OnClose(ELEMENT_PROC_ITEMS)

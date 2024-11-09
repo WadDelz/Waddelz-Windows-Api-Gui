@@ -256,13 +256,13 @@ BOOL CALLBACK classname::ElementDiffDialogProc(HWND hwnd, UINT msg, WPARAM wp, L
 	int notificationCode = HIWORD(wp);
 
 //Ends The Proc For Both START_ELEMENT_PROC and START_ELEMENT_SUBPROC
-#define END_ELEMENT_PROC(ret)															\
+#define END_PROC(ret)															\
 	}																					\
 	return ret;																			\
 }
 
 //Ends The Proc For Both START_ELEMENT_PROC_NOSWITCH and START_ELEMENT_SUBPROC_NOSWITCH
-#define END_ELEMENT_PROC_NO_SWITCH(ret)													\
+#define END_PROC_NOSWITCH(ret)													\
 	return ret;																			\
 }
 
@@ -336,11 +336,31 @@ if (notificationCode == code)															\
 	switch (type)																		\
 	{
 
+#define DEFINE_ELEMENT_SUBPROC_NOTI_NOSWITCH(code)										\
+if (notificationCode == code)															\
+{
+
+//todo: add desc
+#define DEFINE_ELEMENT_SUBPROC_NOTI_ELSE(type)											\
+else																					\
+{																						\
+	switch (type)																		\
+	{
+
+//todo: add desc
+#define DEFINE_ELEMENT_SUBPROC_NOTI_ELSE_NOSWITCH()										\
+else																					\
+{
+
 #define DEFINE_ELEMENT_SUBPROC_IFSTATEMENT(condition, type)								\
 if (condition)																			\
 {																						\
 	switch (type)																		\
 	{
+
+#define DEFINE_ELEMENT_SUBPROC_IFSTATEMENT_NOSWITCH(condition)							\
+if (condition)																			\
+{
 
 //------------------------------------------------------------------
 //
@@ -353,6 +373,9 @@ if (condition)																			\
 #define END_ELEMENT_SUBPROC_NOTI()														\
 	}																					\
 	break;																				\
+}
+
+#define END_ELEMENT_SUBPROC_NOTI_NOSWITCH()												\
 }
 
 //Used To End Notification Subprocs Created With DEFINE_ELEMENT_SUBPROC_NOTI. This Returns
@@ -449,7 +472,7 @@ hwnd, msg, wp, lp
 
 //An Empty Proc Made For DEFINE_ELEMENT_*
 #define NO_PROC \
-EmptyProc
+gui::Element::EmptyProc
 
 //------------------------------------------------------------------
 //
@@ -470,5 +493,47 @@ INT WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR szCmdLine
 //get the notification thing for the WM_NOTIFY
 #define GUI_NOTIFICATION_GET()															\
 LPNMHDR noticode = (LPNMHDR)lp;
+
+//------------------------------------------------------------------
+//
+// Definition Type: helper defines for making functions
+//
+//------------------------------------------------------------------
+
+//used to declare a function inside a class. the function looks like "void name(ELEMENT_PROC_ITEMS)" 
+//name is the func name
+#define DCL_FUNC(name)																	\
+virtual void name(ELEMENT_PROC_ITEMS);
+
+//starts the func you defined with DCL_FUNC
+#define START_FUNC(classname, name)														\
+void classname::name(ELEMENT_PROC_ITEMS)
+
+//used to declare a function inside a class. the function looks like "void name(parameters)" 
+//name is the func name and parameters are the parameters that will be used
+#define DCL_FUNC_PARAMS(name)															\
+virtual void name
+
+//starts the func you defined with DCL_FUNC_PARAMS
+#define START_FUNC_PARAMS(classname, name)												\
+void classname::name
+
+//used to declare a function inside a class. the function looks like "type name(ELEMENT_PROC_ITEMS)" 
+//name is the func name and type is the type of the function
+#define DCL_FUNC_TYPE(type, name)														\
+virtual type name(ELEMENT_PROC_ITEMS);
+
+//starts the func you defined with DCL_FUNC_TYPE
+#define START_FUNC_TYPE(type, classname, name)											\
+type classname::name(ELEMENT_PROC_ITEMS)
+
+//used to declare a function inside a class. the function looks like "type name(parameters)" 
+//name is the func name, parameters are the parameters that will be used and type is the function type
+#define DCL_FUNC_TYPE_PARAMS(type, name)												\
+virtual type name
+
+//starts the func you defined with DCL_FUNC_PARAMS
+#define START_FUNC_TYPE_PARAMS(type, classname, name)									\
+type classname::name
 
 #endif

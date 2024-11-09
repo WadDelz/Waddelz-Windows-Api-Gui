@@ -4,7 +4,7 @@ using namespace gui;
 
 START_ELEMENT_SUBPROC(ListBox)
 DEFINE_ELEMENT_PROC_RETURN(WM_CREATE, NO_PROC, 0);
-END_ELEMENT_PROC(CallWindowProc(m_DefaultProc, hwnd, msg, wp, lp))
+END_PROC(CallWindowProc(m_DefaultProc, hwnd, msg, wp, lp))
 
 ListBox::ListBox() : BaseClass()
 {

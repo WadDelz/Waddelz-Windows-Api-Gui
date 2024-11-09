@@ -23,7 +23,6 @@ namespace gui
 		Window(const char* title);
 		Window(const char* classname, const char* wndprocname, const char* title, int flags, int x, int y, int w, int h, bool bPaintBg, unsigned char r, unsigned char g, unsigned char b, HICON icon, HINSTANCE instance);
 
-		virtual void WindowLoop();
 		virtual void OnClose(ELEMENT_PROC_ITEMS);
 
 		virtual HBRUSH GetBackgroundBrush();

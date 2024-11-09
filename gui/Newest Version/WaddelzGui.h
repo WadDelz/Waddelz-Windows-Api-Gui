@@ -9,6 +9,7 @@
 #include "ContextMenu.h"
 #include "CrashHandler.h"
 #include "Cursor.h"
+#include "CustomItem.h"
 #include "DatePicker.h"
 #include "Element.h"
 #include "ElementDefines.h"

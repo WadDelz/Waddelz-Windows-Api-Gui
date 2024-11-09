@@ -46,6 +46,8 @@ namespace gui
 		virtual void SetTall(const int& tall);
 		virtual void SetBounds(const int& x, const int& y, const int& wide, const int& tall);
 
+		virtual void CenterPosToScreen(const int& wide, const int& tall);
+
 		virtual void SetIcon(HICON icon, bool big = false);
 
 		//called when the deconstructor is called
@@ -119,10 +121,14 @@ namespace gui
 		virtual void StartCapture();
 		virtual void EndCapture();
 
+		static void WindowLoop();
+
 		//virtual void MoveToFront();
 		~Element();
 
 		HWND m_Hwnd;
+
+		static void EmptyProc(ELEMENT_PROC_ITEMS) {}
 	protected:
 		PropertyPage* m_PropertyPage;
 		WNDPROC m_DefaultProc;
@@ -141,8 +147,6 @@ namespace gui
 		int m_iCommandId;
 
 		void SetClassname(const char* classname);
-		void EmptyProc(ELEMENT_PROC_ITEMS) {}
-
 	protected:
 		std::vector<ToolTip*> m_ToolTips;
 
@@ -165,5 +169,7 @@ namespace gui
 	Element* GetElementFromHwnd(HWND hwnd);
 	Element* GetElementFocus();
 }
+
+
 
 #endif //__ELEMENT_H

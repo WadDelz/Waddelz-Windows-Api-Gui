@@ -1,6 +1,7 @@
 #include "Element.h"
 #include "PropertyPage.h"
 #include "ToolTip.h"
+#include "Screen.h"
 
 #pragma comment(lib, "Winmm.lib")
 
@@ -127,6 +128,15 @@ void Element::SetSize(const int& wide, const int& tall)
 void Element::SetBounds(const int& x, const int& y, const int& wide, const int& tall)
 {
 	SetWindowPos(m_Hwnd, nullptr, x, y, wide, tall, SWP_NOZORDER);
+}
+
+void Element::CenterPosToScreen(const int& wide, const int& tall)
+{
+	int swide;
+	int stall;
+
+	GetScreenSize(&swide, &stall);
+	SetPos((swide - wide) / 2, (stall - tall) / 2);
 }
 
 void Element::SetIcon(HICON icon, bool big)
@@ -454,6 +464,16 @@ void Element::StartCapture()
 void Element::EndCapture()
 {
 	ReleaseCapture();
+}
+
+void Element::WindowLoop()
+{
+	MSG msg = {};
+	while (GetMessage(&msg, nullptr, NULL, NULL))
+	{
+		TranslateMessage(&msg);
+		DispatchMessage(&msg);
+	}
 }
 
 Element* gui::GetElementFromPoint(POINT pt)

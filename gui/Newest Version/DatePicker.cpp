@@ -4,7 +4,7 @@ using namespace gui;
 
 START_ELEMENT_SUBPROC(DatePicker)
 DEFINE_ELEMENT_PROC_RETURN(WM_CREATE, NO_PROC, 0);
-END_ELEMENT_PROC(CALL_DEF_SUBPROC())
+END_PROC(CALL_DEF_SUBPROC())
 
 DatePicker::DatePicker() : BaseClass()
 {
